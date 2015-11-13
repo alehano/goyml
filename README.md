@@ -1,5 +1,5 @@
 # goYML
-Yandex Market YML (XML) generator gor Go (golang)
+Yandex Market YML (XML) generator for Go (golang)
 
 File format description: https://yandex.ru/support/partnermarket/yml/about-yml.xml
 

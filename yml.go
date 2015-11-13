@@ -234,7 +234,7 @@ func (o Offer) Validate() error {
 		return errors.New("CategoryId more than 18 cahrs")
 	}
 	if utf8.RuneCountInString(o.Picture) > 512 {
-		return errors.New("Picture more than 20 cahrs")
+		return errors.New("Picture more than 512 cahrs")
 	}
 
 	descrTrim := strings.Replace(o.Description, ",", "", -1)

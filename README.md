@@ -106,6 +106,6 @@ Usage:
 	ymlCat.AddOffer(offer)
 	ymlCat.AddOffer(offer2)
 
-	ExportToFile(ymlCat, "/path/to/file/yml.xml")
+	ExportToFile(ymlCat, "/path/to/file/yml.xml", true)
 
 ```

@@ -6,10 +6,12 @@ import (
 	"os"
 )
 
-func ExportToWriter(cat Catalog, w io.Writer) error {
+func ExportToWriter(cat Catalog, w io.Writer, pretty bool) error {
 	w.Write([]byte(Header))
 	xmlEncoder := xml.NewEncoder(w)
-	xmlEncoder.Indent("", "\t")
+	if pretty {
+		xmlEncoder.Indent("", "\t")
+	}
 	err := xmlEncoder.Encode(cat)
 	if err != nil {
 		return err
@@ -18,11 +20,11 @@ func ExportToWriter(cat Catalog, w io.Writer) error {
 	return nil
 }
 
-func ExportToFile(cat Catalog, filename string) error {
+func ExportToFile(cat Catalog, filename string, pretty bool) error {
 	file, err := os.Create(filename)
 	if err != nil {
 		return err
 	}
 	defer file.Close()
-	return ExportToWriter(cat, file)
+	return ExportToWriter(cat, file, pretty)
 }

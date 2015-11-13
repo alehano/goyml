@@ -230,8 +230,8 @@ func (o Offer) Validate() error {
 	if utf8.RuneCountInString(o.CurrencyId) != 3 {
 		return errors.New("CurrencyId less than 3 chars")
 	}
-	if o.CategoryId > 99999999999999999 {
-		return errors.New("CategoryId more than 20 cahrs")
+	if o.CategoryId > 999999999999999999 {
+		return errors.New("CategoryId more than 18 cahrs")
 	}
 	if utf8.RuneCountInString(o.Picture) > 512 {
 		return errors.New("Picture more than 20 cahrs")

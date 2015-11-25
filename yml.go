@@ -64,7 +64,7 @@ type Shop struct {
 	Currencies      Currencies       `xml:"currencies"`
 	Categories      Categories       `xml:"categories"`
 	DeliveryOptions *DeliveryOptions `xml:"delivery-options"`
-	Cpa             Offers           `xml:"cpa,omitempty"`
+	Cpa             int              `xml:"cpa,omitempty"`
 	Offers          Offers           `xml:"offers"`
 }
 

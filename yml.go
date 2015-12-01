@@ -160,7 +160,7 @@ type Offer struct {
 	CurrencyId           string           `xml:"currencyId"`
 	CategoryId           int              `xml:"categoryId"`
 	MarketCategory       string           `xml:"market_category,omitempty"`
-	Picture              string           `xml:"picture,omitempty"`
+	Picture              []string         `xml:"picture,omitempty"`
 	Store                bool             `xml:"store,omitempty"`
 	Pickup               bool             `xml:"pickup,omitempty"`
 	Delivery             bool             `xml:"delivery,omitempty"`
@@ -186,12 +186,8 @@ type Offer struct {
 	Params               []Param          `xml:"param,omitempty"`
 }
 
-func (o *Offer) AddParam(name, unit, value string) {
-	o.Params = append(o.Params, Param{Name: name, Unit: unit, Value: value})
-}
-
-func (o *Offer) AddBarcode(barcode string) {
-	o.Barcode = append(o.Barcode, barcode)
+func (o *Offer) AddPicture(pic string) {
+	o.Picture = append(o.Picture, pic)
 }
 
 func (o *Offer) AddDeliveryOption(cost int, daysFrom, daysTo int, orderBefore int) {
@@ -201,10 +197,18 @@ func (o *Offer) AddDeliveryOption(cost int, daysFrom, daysTo int, orderBefore in
 	o.DeliveryOptions.add(cost, daysFrom, daysTo, orderBefore)
 }
 
+func (o *Offer) AddBarcode(barcode string) {
+	o.Barcode = append(o.Barcode, barcode)
+}
+
 func (o *Offer) AddAge(unit string, value string) {
 	if o.Age == nil {
 		o.Age = &Age{Unit: unit, Value: value}
 	}
+}
+
+func (o *Offer) AddParam(name, unit, value string) {
+	o.Params = append(o.Params, Param{Name: name, Unit: unit, Value: value})
 }
 
 type Param struct {
@@ -233,8 +237,10 @@ func (o Offer) Validate() error {
 	if o.CategoryId > 999999999999999999 {
 		return errors.New("CategoryId more than 18 cahrs")
 	}
-	if utf8.RuneCountInString(o.Picture) > 512 {
-		return errors.New("Picture more than 512 cahrs")
+	for _, pic := range o.Picture {
+		if utf8.RuneCountInString(pic) > 512 {
+			return errors.New("Picture more than 512 cahrs")
+		}
 	}
 
 	descrTrim := strings.Replace(o.Description, ",", "", -1)

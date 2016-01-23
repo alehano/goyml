@@ -1,10 +1,9 @@
 package goyml
 
 import (
+	"encoding/xml"
 	"testing"
 	"time"
-
-	"golang.org/x/net/webdav/internal/xml"
 )
 
 func TestYml(t *testing.T) {
@@ -18,7 +17,7 @@ func TestYml(t *testing.T) {
 	ymlCat.Shop.Agency = "Agency"
 	ymlCat.Shop.Email = "CMS@CMS.ru"
 
-	ymlCat.AddCurrency("RUR", 1, 0)
+	ymlCat.AddCurrency("RUR", "1", 0)
 
 	someTime, _ := time.Parse("2006-Jan-02", "2013-Feb-03")
 	ymlCat.SetDate(someTime)

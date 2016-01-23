@@ -34,7 +34,7 @@ func (c *Catalog) SetDate(t time.Time) {
 	c.Date = t.Format("2006-01-02 15:04")
 }
 
-func (c *Catalog) AddCurrency(id string, rate, plus float64) {
+func (c *Catalog) AddCurrency(id, rate string, plus float64) {
 	c.Shop.Currencies.add(id, rate, plus)
 }
 
@@ -72,13 +72,13 @@ type Currencies struct {
 	Currency []Currency `xml:"currency"`
 }
 
-func (cur *Currencies) add(id string, rate, plus float64) {
+func (cur *Currencies) add(id, rate string, plus float64) {
 	cur.Currency = append(cur.Currency, Currency{Id: id, Rate: rate, Plus: plus})
 }
 
 type Currency struct {
 	Id   string  `xml:"id,attr"`
-	Rate float64 `xml:"rate,attr"`
+	Rate string  `xml:"rate,attr"`
 	Plus float64 `xml:"plus,attr"`
 }
 

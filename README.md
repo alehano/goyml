@@ -16,7 +16,7 @@ Usage:
 	ymlCat.Shop.Email = "CMS@CMS.ru"
 
 	// id, rate, plus
-	ymlCat.AddCurrency("RUR", 1, 0)
+	ymlCat.AddCurrency("RUR", "1", 0)
 
 	// Categories
 	ymlCat.AddCategory(1, 0, "Книги")
@@ -42,7 +42,7 @@ Usage:
 		OldPrice:             800,
 		CurrencyId:           "USD",
 		CategoryId:           6,
-		Picture:              "http://best.seller.ru/img/device12345.jpg",
+		Picture:              []string{"http://best.seller.ru/img/device12345.jpg"},
 		Store:                false,
 		Pickup:               true,
 		Delivery:             false,
@@ -69,7 +69,7 @@ Usage:
 		OldPrice:             17000,
 		CurrencyId:           "USD",
 		CategoryId:           6,
-		Picture:              "http://best.seller.ru/img/device12345.jpg",
+		Picture:              []string{"http://best.seller.ru/img/device12345.jpg"},
 		Store:                false,
 		Pickup:               false,
 		Delivery:             true,

@@ -94,7 +94,7 @@ func (cat *Categories) add(id, parentId int, name string) {
 type Category struct {
 	Id       int    `xml:"id,attr"`
 	ParentId int    `xml:"parentId,attr,omitempty"`
-	Name     string `xml:",innerxml"`
+	Name     string `xml:",chardata"`
 }
 
 type DeliveryOptions struct {
@@ -214,7 +214,7 @@ func (o *Offer) AddParam(name, unit, value string) {
 type Param struct {
 	Name  string `xml:"name,attr"`
 	Unit  string `xml:"unit,attr,omitempty"`
-	Value string `xml:",innerxml"`
+	Value string `xml:",chardata"`
 }
 
 // Validate offer
@@ -278,7 +278,7 @@ func (o Offer) Validate() error {
 
 type Age struct {
 	Unit  string `xml:"unit,attr"`
-	Value string `xml:",innerxml"`
+	Value string `xml:",chardata"`
 }
 
 func isInSlice(slice []string, val string) bool {

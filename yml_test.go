@@ -4,6 +4,7 @@ import (
 	"encoding/xml"
 	"testing"
 	"time"
+	"reflect"
 )
 
 func TestYml(t *testing.T) {
@@ -118,5 +119,14 @@ func TestYml(t *testing.T) {
 	if string(data) != expected {
 		t.Log(string(data))
 		t.Error("YML incorrect")
+	}
+
+	var catWithCData = `<yml_catalog date="2013-02-03 00:00"><shop><name>BestShop</name><company>Best online seller Inc.</company><url>http://best.seller.ru/</url><platform>CMS</platform><version>2.3</version><agency>Agency</agency><email>CMS@CMS.ru</email><currencies><currency id="RUR" rate="1" plus="0"></currency></currencies><categories><category id="1">Книги</category><category id="2" parentId="1">Детективы</category><category id="3" parentId="1"><![CDATA[Боевики]]></category><category id="4">Видео</category><category id="5" parentId="4">Комедии</category><category id="6">Принтеры</category><category id="7">Оргтехника</category></categories><delivery-options><option cost="0" days="0" order-before="10"></option><option cost="0" days="1"></option></delivery-options><offers><offer id="123" bid="21" available="true"><url>http://best.seller.ru/product_page.asp?pid=12348</url><price>600</price><oldprice>800</oldprice><currencyId>USD</currencyId><categoryId>6</categoryId><picture>http://best.seller.ru/img/device12345.jpg</picture><pickup>true</pickup><name><![CDATA[Наручные часы Casio A1234567B]]></name><vendor>Casio</vendor><vendorCode>A1234567B</vendorCode><description>Изящные наручные часы.</description><sales_notes>Необходима предоплата.</sales_notes><manufacturer_warranty>true</manufacturer_warranty><country_of_origin>Япония</country_of_origin><age unit="year">18</age><barcode>0123456789012</barcode><cpa>1</cpa></offer><offer id="12341" bid="13" type="vendor.model" available="true"><url>http://best.seller.ru/product_page.asp?pid=12344</url><price>16800</price><oldprice>17000</oldprice><currencyId>USD</currencyId><categoryId>6</categoryId><picture>http://best.seller.ru/img/device12345.jpg</picture><delivery>true</delivery><typePrefix>Принтер</typePrefix><vendor>HP</vendor><model>Deskjet D2663</model><description>Серия принтеров для людей, которым нужен надежный, простой в использовании цветной принтер для повседневной печати...</description><sales_notes>Необходима предоплата.</sales_notes><manufacturer_warranty>true</manufacturer_warranty><country_of_origin>Япония</country_of_origin><barcode>1234567890120</barcode><cpa>1</cpa><rec>123123,1214,243</rec><expiry>P5Y</expiry><weight>2.07</weight><dimensions>100/25.45/11.112</dimensions><param name="Максимальный формат">А4</param><param name="Технология печати">термическая струйная</param><param name="Тип печати">Цветная</param><param name="Количество страниц в месяц" unit="стр">1000</param><param name="Потребляемая мощность" unit="Вт">20</param><param name="Вес" unit="кг">2.73</param></offer></offers></shop></yml_catalog>`
+
+	ymlCat2 := NewYML("BestShop", "Best online seller Inc.", "http://best.seller.ru/")
+	xml.Unmarshal([]byte(catWithCData), &ymlCat2)
+	
+	if !reflect.DeepEqual(ymlCat2, ymlCat) {
+		t.Errorf("YML not the same\n\n%v \n\n NOT EQUAL \n\n%v", ymlCat2, ymlCat)
 	}
 }
